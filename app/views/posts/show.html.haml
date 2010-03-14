@@ -1,0 +1,28 @@
+:javascript
+  $(document).ready(function(){
+    $('.post_thumb').css({
+      width:  '#{@post.thumbnail_width}px',
+      height: '#{@post.thumbnail_height}px'
+    });
+    $('#post_holder').css({
+      width: '#{@post.columns * (@post.thumbnail_width.to_i + 12)}px'
+    });
+  });
+
+#post_holder
+  -@post.ordered_links.each do |link|
+    .post_thumb
+      =link_to(image_tag(link.image(@post.thumbnail_dimension_name)), link.url, :target => "_blank", :title => link.description)
+  
+-content_for(:menu) do
+  %li
+    %h2
+      Post
+    %ul
+      %li=link_to 'Edit', edit_post_path(@post)
+      %li=link_to 'Publish', 'javascript:void(0)', :id => 'publish_post'
+      %li.hidden=link_to 'Download Archive', "/posts/#{@post.id}/#{@post.name}.tgz", :id => "archive_link"
+      %li
+        .loading_gif.hidden
+          =image_tag 'ajax-loading.gif'
+          %span#loading_text processing...

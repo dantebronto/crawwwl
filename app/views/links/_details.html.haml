@@ -1,0 +1,42 @@
+%h2
+  Link
+
+%h3 URL
+%ul
+  %li= link_to 'Check', link.url, :target => "blank"
+
+.space
+
+%h3 Position
+%ul
+  %li= link_to 'Remove',   'javascript:void(0)', :id => "remove_link"
+  %li= link_to 'Replace',  'javascript:void(0)', :id => "replace_link"
+  %li= link_to 'Mark Bad', 'javascript:void(0)', :id => "mark_as_bad"
+
+.space
+
+%h3 Image
+%ul
+  %li= link_to 'Upload New',        'javascript:void(0)', :id => "upload_new_image"
+  %li= link_to 'Re-crop Thumbnail', 'javascript:void(0)', :id => "recrop_thumbnail"
+
+.space
+
+%h3 Description
+%ul
+  %li#link_description=link.description
+  
+#temp_recrop_holder.hidden
+  %label Preview
+  
+  .space
+  
+  #thumbnail_mask
+    =image_tag(link.original_image_path, :id => 'thumbnail_preview')
+  .space
+  
+  =image_tag(link.original_image_path, :id => 'jcrop_target')
+  .space
+  %input#cancel_recrop.button{ :type => "button", :value => "Cancel" }
+  %input#save_recrop.button{ :name => "commit", :type => "submit", :value => "Re-crop Thumbnail" }
+  .space

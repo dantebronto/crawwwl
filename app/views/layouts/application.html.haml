@@ -1,0 +1,65 @@
+!!!
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html;charset=UTF-8", "http-equiv" => "content-type" }
+    %title
+      = params[:controller].titleize
+    = javascript_include_tag 'jquery', 'jquery.in-place-edit', 'application', 'jquery-ui-1.7.2.custom.min'
+    = javascript_include_tag @controller_js if @controller_js
+    %link{ :href => "/stylesheets/style.css", :rel => "stylesheet", :type => "text/css", :media => "screen" }    
+    = yield :head
+    
+    :javascript
+      rails_authenticity_token = '#{form_authenticity_token}'
+    
+  %body
+
+    #header
+      #menu
+        %ul
+          %li{ :class => ("current_page_item" if params[:controller] == "welcome") }
+            %a{ :href => "/" }
+              Home
+          %li{ :class => ("current_page_item" if params[:controller] == "source_urls") }
+            = link_to "Source URLs", source_urls_path
+          %li{ :class => ("current_page_item" if params[:controller] == "links") }
+            = link_to "Links", links_path
+          %li{ :class => ("current_page_item" if params[:controller] == "posts") }
+            = link_to "Posts", posts_path
+
+    #wrapper
+      #wrapper-btm
+        #page
+          #content
+            - if params[:controller] == "welcome"
+              #banner
+                \&nbsp;
+            .post
+              = yield
+              
+            .space
+              
+          #sidebar
+            %ul
+              %li
+                %h2
+                  Menu
+                %ul
+                  %li
+                    %a{ :href => "#" }
+                      Home
+                  %li
+                    = link_to "Source URLs", source_urls_path
+                  %li
+                    = link_to "Links", links_path
+                  %li
+                    = link_to "Posts", posts_path
+                    
+              = yield :menu
+              
+          .space
+
+    #footer
+      #footer-wrap
+        %p#legal
+          \&copy; 2010 Crawwwl

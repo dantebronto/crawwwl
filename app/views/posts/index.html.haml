@@ -1,0 +1,14 @@
+%ul#post_messages
+  - if @posts.blank?
+    %li= "No posts links found!"
+
+= link_to "Add a Post", new_post_path
+
+.space
+
+%ul#post_list
+  - for post in @posts
+    %li
+      = render :partial => 'index_actions', :locals => { :post => post }
+      
+=will_paginate @posts

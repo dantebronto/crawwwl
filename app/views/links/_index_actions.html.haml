@@ -1,0 +1,14 @@
+.link_right
+  -if params[:status] == "bad"
+    =image_tag 'cancel.png', :width => 60, :height => 50
+  -else
+    =image_tag link.image(:extra_small)
+    
+.link_left
+  = link_to "&nbsp;", link, :title => "select image", :class => "link_show action"
+
+  = link_to "&nbsp;", link.url, :title => "check", :class => "link_check action", :target => "_blank"
+
+  = link_to "&nbsp;", "javascript:void(0)", :title => "delete", :class => "link_delete action"
+  
+.link_title{ :id => link.id }= link.url

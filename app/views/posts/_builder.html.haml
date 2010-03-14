@@ -1,0 +1,82 @@
+=content_for :head do
+  =javascript_include_tag 'jquery.Jcrop'
+  =stylesheet_link_tag 'jquery.Jcrop'
+
+-form_for @post, :html => {:class => "labeled_form", :enctype => "multipart/form-data"} do |f|
+  =error_messages_for :post
+  =error_messages_for :link
+  
+  =f.label :name
+  =f.text_field :name
+
+  =f.label :total_links
+  =f.text_field :total_links
+
+  =f.label :columns
+  =f.text_field :columns
+
+  =f.label :thumbnail_dimension
+  =f.select :thumbnail_dimension, Post.sorted_thumbnail_dimensions
+  
+  =f.label :image_path_prefix
+  =f.text_field :image_path_prefix
+  
+  =f.hidden_field :link_order
+    
+  =hidden_field :thumbnail, :x1
+  =hidden_field :thumbnail, :y1
+  =hidden_field :thumbnail, :w
+  =hidden_field :thumbnail, :h
+  
+  %input#link_id{ :name => "link[id]", :type => "hidden" }
+  
+  .space
+  
+  =f.submit 'Save Post', :id => 'save_post', :class => 'button'
+  
+  .space
+  
+  #link_form_stuff.hidden.linky
+    %label URL
+    %input#link_url{:name => "link[url]", :type => "text", :size => 30 }
+  
+    %label Description
+    %input#the_link_description{:name => "link[description]", :type => "text", :size => 30 }
+  
+    %label Image
+  
+  #image_upload.hidden.linky
+    %input{ :name => "authenticity_token", :type => "hidden", :value => form_authenticity_token }
+    %input#link_photo{ :name => "link[image]", :size => "30", :type => "file" }
+  
+  #add_link_submit_buttons.hidden.linky
+    .space
+    %input#add_link_cancel{ :type => "button", :value => "Cancel", :class => "button" }
+    %input#add_link_submit{ :name => "commit", :type => "submit", :value => "Add Link", :class => "button" }  
+    .space
+    
+  #crop_image_submit_buttons.hidden.linky
+    .space
+    %input#upload_image_cancel{ :type => "button", :value => "Cancel", :class => "button" }
+    %input#link_submit{ :name => "commit", :type => "submit", :value => "Upload Image", :class => "button" }
+    .space
+    
+  #recrop_holder.hidden.linky
+
+#post_holder
+  - if @post.ordered_links.blank?
+    %p No available links!
+  - else
+    =render :partial => 'link', :collection => @post.ordered_links
+
+.space
+
+-content_for(:menu) do
+  %li
+    %h2
+      Post
+    %ul
+      %li=link_to 'Start Over', 'javascript:void(0)', :id => "post_start_over"
+      %li=link_to 'Add a link', 'javascript:void(0)', :id => "post_add_link"
+
+  %li#link_details

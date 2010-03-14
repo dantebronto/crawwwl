@@ -1,0 +1,18 @@
+%ul#source_url_messages
+  - if @source_urls.blank? 
+    %li No Source URLs found!
+
+= link_to "Add a Source URL", "javascript:void(0);", :id => "add_source_url"
+
+#add_source_url_snippet.hidden
+  %div
+    %input#url_field{:type => "text", :value => "http://" }
+    %input.button{:class => "cancel_source_url", :type => "button", :value => "Cancel" }
+    %input.button{:class => "save_source_url", :type => "button", :value => "Save" }
+
+.space
+
+%ul#source_url_list
+  - for url in @source_urls
+    %li
+      = render :partial => 'index_actions', :locals => { :source_url => url }

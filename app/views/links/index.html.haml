@@ -1,0 +1,30 @@
+%ul#link_messages
+  - if @links.blank?
+    %li= "No #{params[:status] || 'uncrawwwled' } links found!"
+
+= link_to "Add a Link", "javascript:void(0);", :id => "add_link"
+
+#add_link_snippet.hidden
+  %div
+    %input#url_field{:type => "text", :value => "http://" }
+    %input.button{:class => "cancel_link", :type => "button", :value => "Cancel" }
+    %input.button{:class => "save_link", :type => "button", :value => "Save" }
+
+.space
+
+%ul#link_list
+  - for link in @links
+    %li
+      = render :partial => 'index_actions', :locals => { :link => link }
+      
+=will_paginate @links
+
+-content_for(:menu) do
+  %li
+    %h2
+      Sort
+    %ul
+      %li= link_to "Show crawwwled links (#{Link.crawwwled.count})", links_path(:status => "crawwwled")
+      %li= link_to "Show uncrawwwled links (#{Link.uncrawwwled.count})", links_path(:status => "uncrawwwled")
+      %li= link_to "Show good links (#{Link.good.count})", links_path(:status => "good")
+      %li= link_to "Show bad links (#{Link.bad.count})", links_path(:status => "bad")

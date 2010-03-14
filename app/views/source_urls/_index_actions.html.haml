@@ -1,0 +1,7 @@
+= link_to "&nbsp;", source_url, :title => "crawwwl", :class => "source_url_crawwwl action"
+
+= link_to "&nbsp;", source_url.url, :title => "check", :class => "source_url_check action", :target => "_blank"
+
+= link_to "&nbsp;", "javascript:void(0)", :title => "delete", :class => "source_url_delete action"
+
+.source_url_title{ :id => source_url.id }= source_url.url

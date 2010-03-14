@@ -1,0 +1,6 @@
+log/*.log
+db/*.sqlite3
+public/images/link/*
+public/system
+tmp/*
+public/posts/*

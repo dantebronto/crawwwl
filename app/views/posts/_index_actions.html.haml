@@ -1,0 +1,6 @@
+.post_actions
+  = link_to "&nbsp;", post, :title => "view post", :class => "post_show action"
+  = link_to "&nbsp;", edit_post_path(post), :title => "edit post", :class => "edit action"
+  = link_to "&nbsp;", "javascript:void(0)", :title => "delete", :class => "post_delete action"
+
+.post_title{ :id => post.id }= post.name

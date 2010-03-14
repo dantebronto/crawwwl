@@ -1,0 +1,33 @@
+            
+%h1.title=@source_url.url
+
+.space
+
+%a#save_links.hidden{:href => "javascript:void(0)"}Save These Links
+
+%a#crawwwl_link{:href => "javascript:void(0)"}Extract Links From This URL
+
+.space
+
+.loading_gif.hidden
+  =image_tag 'ajax-loading.gif'
+  %span#loading_text loading links...
+
+%ul#extracted_links.hidden
+
+-content_for :menu do
+  %li
+    %h2
+      Rules
+    %ul
+      %li
+        = link_to "Add a Rule", "javascript:void(0)", :id => "add_rule", :class => "hidden"
+        #rule_div.hidden
+          %input{:name => "type", :value => "ignore", :type => "radio", :checked => "checked"}
+            Ignore links containing
+          %br
+          %input{:name => "type", :value => "keep", :type => "radio"}
+            Keep links containing
+          %br
+          %input.sm-field#rule_field{ :type => "text" }
+          %input.button#rule_add_button{ :type => "button", :value => "Add" }
